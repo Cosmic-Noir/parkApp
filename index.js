@@ -2,7 +2,7 @@
 
 // NPS auth key
 const apiKey = 'KkqMVyqMZwLtvhI57wpKp70vr3QZjKUg2F18iDoj'; 
-const searchURL = 'https://developer.nps.gov/api/v1/parks/';
+const searchURL = 'https://developer.nps.gov/api/v1/parks';
 
 function formatQueryParams(params) {
     // turns keys in params object into html string to append to the search URL endpoint
@@ -14,7 +14,6 @@ function formatQueryParams(params) {
 function getParkInfo(stateSearch, limit=10) {
     const params = {
         q: stateSearch,
-        'X-Api-Key': apiKey,
         start: 11,
         limit
         
@@ -27,7 +26,11 @@ function getParkInfo(stateSearch, limit=10) {
     //  API key:
 
     // obtains videos with fectch
-    fetch(url)
+    fetch(url, {
+        headers: new Headers({
+            'X-APi-Key': apiKey
+        }),
+    })
         .then(response => {
             if (response.ok) {
                 return response.json();
