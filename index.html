@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
     <title>Park Finder</title>
 </head>
 <body>
@@ -15,8 +16,10 @@
             <input type="text" name="parkSearch" id="js-limit" placeholder="10">
             <button type="submit">Search for Parks</button>
         </form>
-        <div class="hidden">
-            <ul class="results js-results"></ul>
+        <div role="Results Section">
+            <ul class="results js-results hidden">
+                <h4 class="numResults">Results: </h4>
+            </ul>
         </div>
     </main>
 

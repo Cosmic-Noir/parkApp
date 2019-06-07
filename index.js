@@ -11,9 +11,9 @@ function formatQueryParams(params) {
     return queryItems.join('&');
 }
 
-function getParkInfo(searchTerm, limit=10) {
+function getParkInfo(stateSearch, limit=10) {
     const params = {
-        stateCode: searchTerm,
+        stateCode: stateSearch,
         limit
     };
 
@@ -23,8 +23,7 @@ function getParkInfo(searchTerm, limit=10) {
 
     //  API key:
     const options = {
-        headers: new Headers({
-          "X-Api-Key": apiKey})
+        headers: { 'X-Api-Key': apiKey }
       };
 
     // obtains videos with fectch
@@ -35,7 +34,7 @@ function getParkInfo(searchTerm, limit=10) {
             } 
             throw new Error(response.statustext);
         })
-        .then(responseJson => console.log(JSON.stringify(responseJson)))
+        .then(responseJson => displayParks(responseJson, limit))
         .catch(err => {
             console.log(err.message);
         });
@@ -45,16 +44,19 @@ function handleForm() {
     // handles form data when submit button is clicked
     $('#js-parkSearch').submit(event => {
         event.preventDefault();
-        const searchTerm = $('#js-searchPark').val();
-        console.log(searchTerm);
+        const stateSearch = $('#js-searchPark').val();
+        console.log(stateSearch);
         const limit = $('#js-limit').val();
         console.log(limit);
-        getParkInfo(searchTerm, limit);
+        getParkInfo(stateSearch, limit);
     });
 }
 
-function displayParks() {
+function displayParks(responseJson, limit) {
     // displays video results in js-results ul
+    $('.results').removeClass('hidden');
+
+    console.log('displayParks ran');
 }
 
 handleForm();
