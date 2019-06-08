@@ -54,6 +54,7 @@ function handleForm() {
         console.log(stateSearch);
         let limit = $('#js-limit').val();
         console.log(limit);
+        
         if (limit === ""){
             limit = 10;
             console.log(limit);
