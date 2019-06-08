@@ -14,37 +14,35 @@ function formatQueryParams(params) {
 function getParkInfo(stateSearch, limit) {
     const params = {
         stateCode: stateSearch,
-        start: 11,
         limit
-        
-    };
+}
 
-    const queryString = formatQueryParams(params)
-    const url = searchURL + '?' + queryString;
-    const corsURL = "https://cors-anywhere.herokuapp.com/" + url;
+const queryString = formatQueryParams(params)
+const url = searchURL + '?' + queryString;
+const corsURL = "https://cors-anywhere.herokuapp.com/" + url;
 
-    console.log(url);
+console.log(url);
 
-    //  API key:
+//  API key:
 
-    // obtains videos with fectch
-    fetch(corsURL, {
-        headers: new Headers({
-            'X-APi-Key': apiKey,
-            accept: "application/json",
-            crossDomain: true
-        }),
+// obtains videos with fectch
+fetch(corsURL, {
+    headers: new Headers({
+        'X-APi-Key': apiKey,
+        accept: "application/json",
+        crossDomain: true
+    }),
+})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } 
+        throw new Error(response.statustext);
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } 
-            throw new Error(response.statustext);
-        })
-        .then(responseJson => displayParks(responseJson))
-        .catch(err => {
-            console.log(err.message);
-        });
+    .then(responseJson => displayParks(responseJson))
+    .catch(err => {
+        console.log(err.message);
+    });
 }
 
 function handleForm() {
@@ -58,9 +56,10 @@ function handleForm() {
         console.log(limit);
         if (limit === ""){
             limit = 10;
+            console.log(limit);
         } 
         
-        if (stateSearch === "" || stateSearch.length != 2){
+        if (stateSearch === "" || stateSearch.length < 2){
             alert("Please enter a state abreviation.");
         } else {
             getParkInfo(stateSearch, limit);
@@ -68,7 +67,7 @@ function handleForm() {
     });
 }
 
-function displayParks(responseJson, limit) {
+function displayParks(responseJson) {
     // displays video results in js-results ul
     console.log(responseJson);
     
