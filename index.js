@@ -67,16 +67,13 @@ function displayParks(responseJson, limit) {
     $('#js-results').empty();
 
     for (let i = 0; i < responseJson.data.length; i++){
-        console.log('the for loop ran');
         $('#js-results').append(
             `<li>
-                <h2>${responseJson.data[i].fullName}</h2>
-                <p>This</p>
+                <h2><a href="${responseJson.data[i].url}" target="_blank">${responseJson.data[i].fullName}</a></h2>
+                <p>${responseJson.data[i].description}</p>
             </li>
             `
-        )
-        console.log(responseJson.data[i]);
-    }
+        )}
 
     console.log('displayParks ran');
     $('.results').removeClass('hidden');

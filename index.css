@@ -2,3 +2,6 @@
     display: none;
 }
 
+.results {
+    list-style-type: none;
+}
