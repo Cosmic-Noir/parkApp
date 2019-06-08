@@ -11,7 +11,7 @@ function formatQueryParams(params) {
     return queryItems.join('&');
 }
 
-function getParkInfo(stateSearch, limit=10) {
+function getParkInfo(stateSearch, limit) {
     const params = {
         stateCode: stateSearch,
         start: 11,
@@ -51,11 +51,20 @@ function handleForm() {
     // handles form data when submit button is clicked
     $('#js-parkSearch').submit(event => {
         event.preventDefault();
+
         const stateSearch = $('#js-searchPark').val();
         console.log(stateSearch);
-        const limit = $('#js-limit').val();
+        let limit = $('#js-limit').val();
         console.log(limit);
-        getParkInfo(stateSearch, limit);
+        if (limit === ""){
+            limit = 10;
+        } 
+        
+        if (stateSearch === "" || stateSearch.length != 2){
+            alert("Please enter a state abreviation.");
+        } else {
+            getParkInfo(stateSearch, limit);
+        }
     });
 }
 
@@ -66,7 +75,8 @@ function displayParks(responseJson, limit) {
     // empty display area
     $('#js-results').empty();
 
-    for (let i = 0; i < responseJson.data.length; i++){
+    for (let i = 0; i < responseJson.data.length - 1; i++){
+        console.log(i);
         $('#js-results').append(
             `<li>
                 <h2><a href="${responseJson.data[i].url}" target="_blank">${responseJson.data[i].fullName}</a></h2>
